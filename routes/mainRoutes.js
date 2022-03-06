@@ -24,8 +24,8 @@ const securityMiddleWare = (req, res, next) => {
 const fileMiddleware = (req, res, next) => {
     dirs = [
         "/database",
-        "public/uploadedFiles/aboutMe",
-        "public/uploadedFiles/projects"
+        "/public/uploadedFiles/aboutMe",
+        "/public/uploadedFiles/projects"
     ]
 
     for (let i = 0; i < dirs.length; i++) {
