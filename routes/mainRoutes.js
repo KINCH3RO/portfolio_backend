@@ -27,6 +27,7 @@ const fileMiddleware = (req, res, next) => {
         "/public/uploadedFiles/aboutMe",
         "/public/uploadedFiles/projects"
     ]
+    
 
     for (let i = 0; i < dirs.length; i++) {
         if (!fs.existsSync(process.cwd() + dirs[i])) {
