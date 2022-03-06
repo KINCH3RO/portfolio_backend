@@ -21,22 +21,7 @@ const securityMiddleWare = (req, res, next) => {
     next()
 }
 
-const fileMiddleware = (req, res, next) => {
-    dirs = [
-        "/database",
-        "/public/uploadedFiles/aboutMe",
-        "/public/uploadedFiles/projects"
-    ]
-    
 
-    for (let i = 0; i < dirs.length; i++) {
-        if (!fs.existsSync(process.cwd() + dirs[i])) {
-            fs.mkdirSync(process.cwd() + dirs[i],{recursive:true})
-        }
-
-    }
-    next()
-}
 
 
 
@@ -45,7 +30,7 @@ const fileMiddleware = (req, res, next) => {
 module.exports = (app) => {
 
     app.use(securityMiddleWare)
-    app.use(fileMiddleware)
+ 
 
     app.post('/files/clean', (req, res) => {
         let files = req.body.files
@@ -94,6 +79,10 @@ module.exports = (app) => {
             message: 'deleted Succesfully'
         })
 
+    })
+
+    app.get('/db/getAll',(req,res)=>{
+        res.json(db.getData('/'))
     })
 
     app.get("/db/:document", (req, res) => {
