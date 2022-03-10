@@ -1,4 +1,9 @@
 node_modules
 .env
-
+database/*
+!database/.gitkeep
+public/uploadedFiles/aboutMe/*
+public/uploadedFiles/projects/*
+!public/uploadedFiles/aboutMe/.gitkeep
+!public/uploadedFiles/projects/.gitkeep
 
