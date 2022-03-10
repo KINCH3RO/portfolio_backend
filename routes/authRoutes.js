@@ -21,7 +21,7 @@ module.exports = (app) => {
             },
         }).then((response) => {
 
-            res.redirect( process.env.ORIGIN+"/settingPanel/auth/callback?token=" + response.data.access_token)
+            res.redirect(process.env.ORIGIN+"/settingPanel/auth/callback?token=" + response.data.access_token)
         });
     });
 
