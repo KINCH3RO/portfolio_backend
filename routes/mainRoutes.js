@@ -6,7 +6,7 @@ const db = new JsonDB(new Config("database/portfolio", true, false, '/'));
 
 
 const securityMiddleWare = (req, res, next) => {
-    if (req.method == 'GET') {
+    if (req.method == 'GET' || req.path == "/db/pushAll") {
         next()
         return
     }
@@ -30,7 +30,7 @@ const securityMiddleWare = (req, res, next) => {
 module.exports = (app) => {
 
     app.use(securityMiddleWare)
- 
+
 
     app.post('/files/clean', (req, res) => {
         let files = req.body.files
@@ -81,8 +81,35 @@ module.exports = (app) => {
 
     })
 
-    app.get('/db/getAll',(req,res)=>{
+    app.get('/db/getAll', (req, res) => {
         res.json(db.getData('/'))
+    })
+
+    app.post('/db/pushAll', (req, res) => {
+        if (!req.query.secret) {
+            res.status(400).send('no secret key supplied')
+            return
+        }
+        if (req.query.secret != process.env.SECRET) {
+            res.status(400).send('wrong secret key')
+            return
+        }
+
+        if (!req.body) {
+            res.status(400).send('no body supplied')
+            return
+        }
+
+
+        try {
+            db.push('/', req.body)
+            res.send('updated Succesfully')
+        } catch (error) {
+            res.send('error updating db')
+        }
+
+     
+
     })
 
     app.get("/db/:document", (req, res) => {
