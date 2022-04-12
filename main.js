@@ -1,8 +1,9 @@
 require('dotenv').config()
-const homeRoutes = require('./routes/mainRoutes')
-const emailRoutes = require('./routes/emailRoutes')
-const authRoutes = require('./routes/authRoutes')
-const fileManagmentRoutes = require('./routes/fileManagmentRoutes')
+const homeRoutes = require('./routes/mainRoutes');
+const emailRoutes = require('./routes/emailRoutes');
+const authRoutes = require('./routes/authRoutes');
+const fileManagmentRoutes = require('./routes/fileManagmentRoutes');
+const statsRoutes =require('./routes/statsRoutes');
 const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -25,10 +26,12 @@ app.use(fileUpload())
 
 
 //don't change the order of the route security middleWare exist on home routes
+statsRoutes(app);
 authRoutes(app)
 emailRoutes(app)
 homeRoutes(app)
 fileManagmentRoutes(app)
+
 
 app.get('/', (req, res) => {
     res.send('server working')
